@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "scripts": {
         "dev": "tsx --watch ./src/index.ts",
-        "start": "tsx ./src/index.ts",
+        "start": "tsc && node dist/src/index.js",
         "build": "npx prisma generate --schema src/prisma/schema.prisma"
     },
     "keywords": [],
