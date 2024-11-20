@@ -1,4 +1,3 @@
-import { PrismaClient } from "@prisma/client";
 import { RequestHandler } from "express";
 import getUser from "../actions/getUser";
 import prisma from "../../prisma/client";

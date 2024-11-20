@@ -2,9 +2,9 @@ import { RequestHandler } from "express";
 import getUser from "../actions/getUser";
 import prisma from "../../prisma/client";
 
-// GET /api/posts/:postId/comments
-export const getPostComments : RequestHandler = async (req, res) => {
-    const { postId } = req.params;
+// GET /api/profiles/:userId/posts
+export const getProfilePosts : RequestHandler = async (req, res) => {
+    const { userId } = req.params;
 
     const user = getUser(req);
 
@@ -18,11 +18,14 @@ export const getPostComments : RequestHandler = async (req, res) => {
     }
 
     try {
-        const comments = await prisma.comment.findMany({
+        const comments = await prisma.post.findMany({
             take: step,
             skip: (page - 1) * step,
             where: {
-                postId
+                authorId: userId
+            },
+            orderBy: {
+                createdAt: "desc"
             },
             include: {
                 author: {
@@ -30,6 +33,13 @@ export const getPostComments : RequestHandler = async (req, res) => {
                         id: true,
                         name: true,
                         email: true
+                    }
+                },
+                media: {
+                    select: {
+                        id: true,
+                        type: true,
+                        url: true
                     }
                 },
                 votes: {

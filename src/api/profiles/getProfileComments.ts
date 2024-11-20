@@ -2,9 +2,9 @@ import { RequestHandler } from "express";
 import getUser from "../actions/getUser";
 import prisma from "../../prisma/client";
 
-// GET /api/posts/:postId/comments
-export const getPostComments : RequestHandler = async (req, res) => {
-    const { postId } = req.params;
+// GET /api/profiles/:userId/comments
+export const getProfileComments : RequestHandler = async (req, res) => {
+    const { userId } = req.params;
 
     const user = getUser(req);
 
@@ -22,7 +22,7 @@ export const getPostComments : RequestHandler = async (req, res) => {
             take: step,
             skip: (page - 1) * step,
             where: {
-                postId
+                authorId: userId
             },
             include: {
                 author: {
