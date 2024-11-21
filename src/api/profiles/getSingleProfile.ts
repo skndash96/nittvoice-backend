@@ -1,5 +1,4 @@
 import { RequestHandler } from "express";
-import getUser from "../actions/getUser";
 import prisma from "../../prisma/client";
 
 // GET /api/profiles/:userId/
